@@ -52,6 +52,18 @@ require("webpack/bin/config-optimist")(optimist);
 
 var argv = optimist.argv;
 
+if (process.env.WEBPACK_DEV_SERVER_HOST)
+	argv.host = process.env.WEBPACK_DEV_SERVER_HOST;
+
+if (process.env.WEBPACK_DEV_SERVER_PORT)
+	argv.port = process.env.WEBPACK_DEV_SERVER_PORT;
+
+if (process.env.WEBPACK_DEV_SERVER_PROGRESS)
+{
+	argv.progress = ["true", "1", "t", "y", "yes"]
+		.indexOf(process.env.WEBPACK_DEV_SERVER_PROGRESS.toLowerCase()) != -1;
+}
+
 var wpOpt = require("webpack/bin/convert-argv")(optimist, argv, { outputFilename: "/bundle.js" });
 var firstWpOpt = Array.isArray(wpOpt) ? wpOpt[0] : wpOpt;
 
