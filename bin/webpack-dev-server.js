@@ -53,10 +53,17 @@ require("webpack/bin/config-optimist")(optimist);
 var argv = optimist.argv;
 
 if (process.env.WEBPACK_DEV_SERVER_HOST)
-	argv.host = process.env.WEBPACK_DEV_SERVER_HOST;
+{
+	// match a URI e.g. 'tcp://1.2.3.4:5678/path' or '1.2.3.4'
+	// extract the host portion (1.2.3.4)
+	argv.host = process.env.WEBPACK_DEV_SERVER_HOST
+		.replace(/(?:[^\/]*\/\/)?([^:\/]+)[:\/]?.*/, '$1');
+}
 
 if (process.env.WEBPACK_DEV_SERVER_PORT)
+{
 	argv.port = process.env.WEBPACK_DEV_SERVER_PORT;
+}
 
 if (process.env.WEBPACK_DEV_SERVER_PROGRESS)
 {
