@@ -54,7 +54,8 @@ var argv = optimist.argv;
 
 if (process.env.WEBPACK_DEV_SERVER_HOST)
 {
-	if (process.env.WEBPACK_DEV_SERVER_HOST.startsWith("tcp://"))
+	// startsWith("tcp://")
+	if (process.env.WEBPACK_DEV_SERVER_HOST.indexOf("tcp://", 0) == 0)
 		argv.host = "0.0.0.0";
 	else
 		argv.host = process.env.WEBPACK_DEV_SERVER_HOST;
