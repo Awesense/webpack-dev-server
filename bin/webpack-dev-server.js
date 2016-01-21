@@ -54,10 +54,10 @@ var argv = optimist.argv;
 
 if (process.env.WEBPACK_DEV_SERVER_HOST)
 {
-	// match a URI e.g. 'tcp://1.2.3.4:5678/path' or '1.2.3.4'
-	// extract the host portion (1.2.3.4)
-	argv.host = process.env.WEBPACK_DEV_SERVER_HOST
-		.replace(/(?:[^\/]*\/\/)?([^:\/]+)[:\/]?.*/, '$1');
+	if (process.env.WEBPACK_DEV_SERVER_HOST.startsWith("tcp://"))
+		argv.host = "0.0.0.0";
+	else
+		argv.host = process.env.WEBPACK_DEV_SERVER_HOST;
 }
 
 if (process.env.WEBPACK_DEV_SERVER_PORT)
